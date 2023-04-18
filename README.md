@@ -1,4 +1,4 @@
-# webtunnel
+# webtunnel-next
 
 webtunnel exposes your localhost to the world for easy testing and sharing! No need to mess with DNS or deploy just to have others test out your changes.
 
@@ -7,7 +7,7 @@ Great for working with browser testing tools like browserling or external api ca
 ## Quickstart
 
 ```
-npx webtunnel --port 8000
+npx webtunnel-next --port 8000
 ```
 
 ## Installation
@@ -15,13 +15,13 @@ npx webtunnel --port 8000
 ### Globally
 
 ```
-npm install -g web-tunnel
+npm install -g webtunnel-next
 ```
 
 ### As a dependency in your project
 
 ```
-yarn add web-tunnel
+yarn add webtunnel-next
 ```
 
 ## CLI usage
@@ -58,7 +58,7 @@ The webtunnel client is also usable through an API (for test integration, automa
 Creates a new webtunnel to the specified local `port`. Will return a Promise that resolves once you have been assigned a public webtunnel url. `options` can be used to request a specific `subdomain`. A `callback` function can be passed, in which case it won't return a Promise. This exists for backwards compatibility with the old Node-style callback API. You may also pass a single options object with `port` as a property.
 
 ```js
-const webtunnel = require('webtunnel');
+const webtunnel = require('webtunnel-next');
 
 (async () => {
   const tunnel = await webtunnel({ port: 3000 });
@@ -106,7 +106,7 @@ The `tunnel` instance has the following methods
 
 ## server
 
-See [webtunnel/server](//github.com/webtunnel/server) for details on the server that powers webtunnel.
+See [/webtunnel-server](//github.com/yousufkalim/webtunnel-server) for details on the server that powers webtunnel.
 
 ## License
 
