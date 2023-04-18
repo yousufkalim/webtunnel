@@ -4,7 +4,7 @@
 const openurl = require('openurl');
 const yargs = require('yargs');
 
-const localtunnel = require('../localtunnel');
+const webtunnel = require('../webtunnel');
 const { version } = require('../package');
 
 const { argv } = yargs
@@ -17,7 +17,7 @@ const { argv } = yargs
   .option('h', {
     alias: 'host',
     describe: 'Upstream server providing forwarding',
-    default: 'https://localtunnel.me',
+    default: 'https://mrdev.me',
   })
   .option('s', {
     alias: 'subdomain',
@@ -25,7 +25,8 @@ const { argv } = yargs
   })
   .option('l', {
     alias: 'local-host',
-    describe: 'Tunnel traffic to this host instead of localhost, override Host header to this host',
+    describe:
+      'Tunnel traffic to this host instead of localhost, override Host header to this host',
   })
   .option('local-https', {
     describe: 'Tunnel traffic to a local HTTPS server',
@@ -40,7 +41,8 @@ const { argv } = yargs
     describe: 'Path to certificate authority file for self-signed certificates',
   })
   .option('allow-invalid-cert', {
-    describe: 'Disable certificate checks for your local HTTPS server (ignore cert/key/ca options)',
+    describe:
+      'Disable certificate checks for your local HTTPS server (ignore cert/key/ca options)',
   })
   .options('o', {
     alias: 'open',
@@ -63,7 +65,7 @@ if (typeof argv.port !== 'number') {
 }
 
 (async () => {
-  const tunnel = await localtunnel({
+  const tunnel = await webtunnel({
     port: argv.port,
     host: argv.host,
     subdomain: argv.subdomain,
@@ -73,11 +75,11 @@ if (typeof argv.port !== 'number') {
     local_key: argv.localKey,
     local_ca: argv.localCa,
     allow_invalid_cert: argv.allowInvalidCert,
-  }).catch(err => {
+  }).catch((err) => {
     throw err;
   });
 
-  tunnel.on('error', err => {
+  tunnel.on('error', (err) => {
     throw err;
   });
 
@@ -86,7 +88,6 @@ if (typeof argv.port !== 'number') {
   /**
    * `cachedUrl` is set when using a proxy server that support resource caching.
    * This URL generally remains available after the tunnel itself has closed.
-   * @see https://github.com/localtunnel/localtunnel/pull/319#discussion_r319846289
    */
   if (tunnel.cachedUrl) {
     console.log('your cachedUrl is: %s', tunnel.cachedUrl);
@@ -97,7 +98,7 @@ if (typeof argv.port !== 'number') {
   }
 
   if (argv['print-requests']) {
-    tunnel.on('request', info => {
+    tunnel.on('request', (info) => {
       console.log(new Date().toString(), info.method, info.path);
     });
   }

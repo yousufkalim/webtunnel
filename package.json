@@ -1,19 +1,17 @@
 {
-  "name": "localtunnel",
+  "name": "webtunnel",
   "description": "Expose localhost to the world",
   "version": "2.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/localtunnel/localtunnel.git"
+    "url": "git://github.com/yousufkalim/webtunnel.git"
   },
-  "author": "Roman Shtylman <shtylman@gmail.com>",
+  "author": "Yousuf Kalim <yousufkalim@outlook.com>",
   "contributors": [
-    "Roman Shtylman <shtylman@gmail.com>",
-    "Gert Hengeveld <gert@hichroma.com>",
-    "Tom Coleman <tom@hichroma.com>"
+    "Yousuf Kalim <yousufkalim@outlook.com>"
   ],
-  "main": "./localtunnel.js",
+  "main": "./webtunnel.js",
   "bin": {
     "lt": "bin/lt.js"
   },

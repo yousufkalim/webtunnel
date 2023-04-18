@@ -6,11 +6,11 @@ const https = require('https');
 const url = require('url');
 const assert = require('assert');
 
-const localtunnel = require('./localtunnel');
+const webtunnel = require('./webtunnel');
 
 let fakePort;
 
-before(done => {
+before((done) => {
   const server = http.createServer();
   server.on('request', (req, res) => {
     res.write(req.headers.host);
@@ -23,9 +23,9 @@ before(done => {
   });
 });
 
-it('query localtunnel server w/ ident', async done => {
-  const tunnel = await localtunnel({ port: fakePort });
-  assert.ok(new RegExp('^https://.*localtunnel.me$').test(tunnel.url));
+it('query webtunnel server w/ ident', async (done) => {
+  const tunnel = await webtunnel({ port: fakePort });
+  assert.ok(new RegExp('^https://.*webtunnel.me$').test(tunnel.url));
 
   const parsed = url.parse(tunnel.url);
   const opt = {
@@ -35,16 +35,16 @@ it('query localtunnel server w/ ident', async done => {
     path: '/',
   };
 
-  const req = https.request(opt, res => {
+  const req = https.request(opt, (res) => {
     res.setEncoding('utf8');
     let body = '';
 
-    res.on('data', chunk => {
+    res.on('data', (chunk) => {
       body += chunk;
     });
 
     res.on('end', () => {
-      assert(/.*[.]localtunnel[.]me/.test(body), body);
+      assert(/.*[.]webtunnel[.]me/.test(body), body);
       tunnel.close();
       done();
     });
@@ -54,18 +54,16 @@ it('query localtunnel server w/ ident', async done => {
 });
 
 it('request specific domain', async () => {
-  const subdomain = Math.random()
-    .toString(36)
-    .substr(2);
-  const tunnel = await localtunnel({ port: fakePort, subdomain });
-  assert.ok(new RegExp(`^https://${subdomain}.localtunnel.me$`).test(tunnel.url));
+  const subdomain = Math.random().toString(36).substr(2);
+  const tunnel = await webtunnel({ port: fakePort, subdomain });
+  assert.ok(new RegExp(`^https://${subdomain}.webtunnel.me$`).test(tunnel.url));
   tunnel.close();
 });
 
 describe('--local-host localhost', () => {
-  it('override Host header with local-host', async done => {
-    const tunnel = await localtunnel({ port: fakePort, local_host: 'localhost' });
-    assert.ok(new RegExp('^https://.*localtunnel.me$').test(tunnel.url));
+  it('override Host header with local-host', async (done) => {
+    const tunnel = await webtunnel({ port: fakePort, local_host: 'localhost' });
+    assert.ok(new RegExp('^https://.*webtunnel.me$').test(tunnel.url));
 
     const parsed = url.parse(tunnel.url);
     const opt = {
@@ -75,11 +73,11 @@ describe('--local-host localhost', () => {
       path: '/',
     };
 
-    const req = https.request(opt, res => {
+    const req = https.request(opt, (res) => {
       res.setEncoding('utf8');
       let body = '';
 
-      res.on('data', chunk => {
+      res.on('data', (chunk) => {
         body += chunk;
       });
 
@@ -95,9 +93,9 @@ describe('--local-host localhost', () => {
 });
 
 describe('--local-host 127.0.0.1', () => {
-  it('override Host header with local-host', async done => {
-    const tunnel = await localtunnel({ port: fakePort, local_host: '127.0.0.1' });
-    assert.ok(new RegExp('^https://.*localtunnel.me$').test(tunnel.url));
+  it('override Host header with local-host', async (done) => {
+    const tunnel = await webtunnel({ port: fakePort, local_host: '127.0.0.1' });
+    assert.ok(new RegExp('^https://.*webtunnel.me$').test(tunnel.url));
 
     const parsed = url.parse(tunnel.url);
     const opt = {
@@ -109,11 +107,11 @@ describe('--local-host 127.0.0.1', () => {
       path: '/',
     };
 
-    const req = https.request(opt, res => {
+    const req = https.request(opt, (res) => {
       res.setEncoding('utf8');
       let body = '';
 
-      res.on('data', chunk => {
+      res.on('data', (chunk) => {
         body += chunk;
       });
 
@@ -127,9 +125,9 @@ describe('--local-host 127.0.0.1', () => {
     req.end();
   });
 
-  it('send chunked request', async done => {
-    const tunnel = await localtunnel({ port: fakePort, local_host: '127.0.0.1' });
-    assert.ok(new RegExp('^https://.*localtunnel.me$').test(tunnel.url));
+  it('send chunked request', async (done) => {
+    const tunnel = await webtunnel({ port: fakePort, local_host: '127.0.0.1' });
+    assert.ok(new RegExp('^https://.*webtunnel.me$').test(tunnel.url));
 
     const parsed = url.parse(tunnel.url);
     const opt = {
@@ -142,11 +140,11 @@ describe('--local-host 127.0.0.1', () => {
       path: '/',
     };
 
-    const req = https.request(opt, res => {
+    const req = https.request(opt, (res) => {
       res.setEncoding('utf8');
       let body = '';
 
-      res.on('data', chunk => {
+      res.on('data', (chunk) => {
         body += chunk;
       });
 
