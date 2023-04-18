@@ -13,7 +13,7 @@
   ],
   "main": "./webtunnel.js",
   "bin": {
-    "lt": "bin/lt.js"
+    "wt": "bin/wt.js"
   },
   "scripts": {
     "test": "mocha --reporter list --timeout 60000 -- *.spec.js"

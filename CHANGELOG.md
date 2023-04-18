@@ -74,7 +74,7 @@
 
 # 1.0.0 / 2014-02-14
 
-- default to localltunnel.me for host
+- default to webtunnel.me for host
 - remove exported `connect` method (just export one function that does the same thing)
 - change webtunnel signature to (port, opt, fn)
 
